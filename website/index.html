@@ -1,29 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WaveBeats 🎧</title>
+  <style>
+    /* General styles */
+    * { box-sizing: border-box; margin:0; padding:0; }
+    body { background: #000; color: #fff; font-family: Arial, sans-serif; }
     
-    .song-card img {
+    /* Header */
+    header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: #0f0f0f;
+      padding: 16px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    header .top-bar {
+      display: flex;
+      justify-content: space-between;
       width: 100%;
-      border-radius: 12px;
+      align-items: center;
     }
-    .song-title {
-      margin: 8px 0 4px;
-      font-size: 15px;
+    .logo { font-size: 24px; color: #00ff88; font-weight: bold; }
+    #searchBar {
+      margin-top: 12px;
+      padding: 10px;
+      width: 90%;
+      border-radius: 25px;
+      border: none;
+      font-size: 16px;
+      outline: none;
     }
-    .song-artist {
-      font-size: 12px;
-      color: #aaa;
+
+    /* Song grid */
+    .song-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 16px;
+      padding: 16px;
     }
+    .song-card {
+      background: #111;
+      border-radius: 14px;
+      padding: 12px;
+      box-shadow: 0 0 10px #000;
+      transition: transform 0.2s;
+    }
+    .song-card:hover { transform: scale(1.05); }
+    .song-card img { width: 100%; border-radius: 12px; }
+    .song-title { margin: 8px 0 4px; font-size: 15px; }
+    .song-artist { font-size: 12px; color: #aaa; }
+
     .controls {
       display: flex;
       justify-content: space-between;
       margin-top: 8px;
     }
-    button {
+    .controls button {
       background: #00ff88;
       border: none;
       padding: 6px 10px;
       border-radius: 20px;
       cursor: pointer;
       font-weight: bold;
+      transition: background 0.2s;
     }
+    .controls button:hover { background: #00cc66; }
+
+    /* Footer audio player */
     footer {
       position: fixed;
       bottom: 0;
@@ -34,54 +83,43 @@
       align-items: center;
       gap: 10px;
     }
-    audio {
-      width: 100%;
-    }
+    audio { width: 100%; }
   </style>
 </head>
 <body>
 
 <header>
-  <div class="logo">🌊 WaveBeats</div>
-  <div>Free Music App</div>
+  <div class="top-bar">
+    <div class="logo">🌊 WaveBeats</div>
+    <div>Free Music App</div>
+  </div>
+  <input type="text" id="searchBar" placeholder="Search songs..." onkeyup="searchSongs()">
 </header>
 
 <div class="song-grid">
+  <!-- Example song 1 -->
   <div class="song-card">
-    <img src="https://picsum.photos/200?random=1">
-    <div class="song-title">Midnight Dreams</div>
-    <div class="song-artist">Neon Waves</div>
+    <img src="https://picsum.photos/200?random=1" alt="VibeHorn">
+    <div class="song-title">VibeHorn</div>
+    <div class="song-artist">Unknown</div>
     <div class="controls">
-      <button onclick="playSong('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3')">▶ Play</button>
-      <a href="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" download>
-        <button>⬇ Download</button>
-      </a>
+      <button onclick="playSong('YOUR_DIRECT_MP3_LINK')">▶ Play</button>
+      <a href="YOUR_DIRECT_MP3_LINK" download><button>⬇ Download</button></a>
     </div>
   </div>
 
+  <!-- Example song 2 -->
   <div class="song-card">
-    <img src="https://picsum.photos/200?random=2">
-    <div class="song-title">City Lights</div>
-    <div class="song-artist">Urban Sky</div>
+    <img src="https://picsum.photos/200?random=2" alt="Hazy After Hours">
+    <div class="song-title">Hazy After Hours</div>
+    <div class="song-artist">Mixkit Free Music</div>
     <div class="controls">
-      <button onclick="playSong('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3')">▶ Play</button>
-      <a href="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" download>
-        <button>⬇ Download</button>
-      </a>
+      <button onclick="playSong('https://assets.mixkit.co/music/preview/mixkit-hazy-after-hours-132.mp3')">▶ Play</button>
+      <a href="https://assets.mixkit.co/music/preview/mixkit-hazy-after-hours-132.mp3" download><button>⬇ Download</button></a>
     </div>
   </div>
 
-  <div class="song-card">
-    <img src="https://picsum.photos/200?random=3">
-    <div class="song-title">Ocean Breeze</div>
-    <div class="song-artist">Blue Horizon</div>
-    <div class="controls">
-      <button onclick="playSong('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3')">▶ Play</button>
-      <a href="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" download>
-        <button>⬇ Download</button>
-      </a>
-    </div>
-  </div>
+  <!-- Add more song cards here... -->
 </div>
 
 <footer>
@@ -89,13 +127,30 @@
 </footer>
 
 <script>
+  // Play selected song
   function playSong(url) {
     const player = document.getElementById("player");
     player.src = url;
     player.play();
   }
+
+  // Search functionality
+  function searchSongs() {
+    let input = document.getElementById('searchBar');
+    let filter = input.value.toLowerCase();
+    let songs = document.getElementsByClassName('song-card');
+
+    for (let i = 0; i < songs.length; i++) {
+      let title = songs[i].getElementsByClassName('song-title')[0].innerText.toLowerCase();
+      let artist = songs[i].getElementsByClassName('song-artist')[0].innerText.toLowerCase();
+      if(title.includes(filter) || artist.includes(filter)){
+        songs[i].style.display = "";
+      } else {
+        songs[i].style.display = "none";
+      }
+    }
+  }
 </script>
 
 </body>
 </html>
-
