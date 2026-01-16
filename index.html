@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>WaveBeats 🎧</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      margin: 0;
+      background: #000;
+      color: white;
+      font-family: Arial, sans-serif;
+    }
+    header {
+      padding: 16px;
+      background: #0f0f0f;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-size: 22px;
+      color: #00ff88;
+      font-weight: bold;
+    }
+    .song-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 16px;
+      padding: 16px;
+    }
+    .song-card {
+      background: #111;
+      border-radius: 14px;
+      padding: 12px;
+      box-shadow: 0 0 10px #000;
+    }
+    .song-card img {
+      width: 100%;
+      border-radius: 12px;
+    }
+    .song-title {
+      margin: 8px 0 4px;
+      font-size: 15px;
+    }
+    .song-artist {
+      font-size: 12px;
+      color: #aaa;
+    }
+    .controls {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 8px;
+    }
+    button {
+      background: #00ff88;
+      border: none;
+      padding: 6px 10px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background: #0f0f0f;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    audio {
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">🌊 WaveBeats</div>
+  <div>Free Music App</div>
+</header>
+
+<div class="song-grid">
+  <div class="song-card">
+    <img src="https://picsum.photos/200?random=1">
+    <div class="song-title">Midnight Dreams</div>
+    <div class="song-artist">Neon Waves</div>
+    <div class="controls">
+      <button onclick="playSong('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3')">▶ Play</button>
+      <a href="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" download>
+        <button>⬇ Download</button>
+      </a>
+    </div>
+  </div>
+
+  <div class="song-card">
+    <img src="https://picsum.photos/200?random=2">
+    <div class="song-title">City Lights</div>
+    <div class="song-artist">Urban Sky</div>
+    <div class="controls">
+      <button onclick="playSong('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3')">▶ Play</button>
+      <a href="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" download>
+        <button>⬇ Download</button>
+      </a>
+    </div>
+  </div>
+
+  <div class="song-card">
+    <img src="https://picsum.photos/200?random=3">
+    <div class="song-title">Ocean Breeze</div>
+    <div class="song-artist">Blue Horizon</div>
+    <div class="controls">
+      <button onclick="playSong('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3')">▶ Play</button>
+      <a href="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" download>
+        <button>⬇ Download</button>
+      </a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <audio id="player" controls></audio>
+</footer>
+
+<script>
+  function playSong(url) {
+    const player = document.getElementById("player");
+    player.src = url;
+    player.play();
+  }
+</script>
+
+</body>
+</html>
